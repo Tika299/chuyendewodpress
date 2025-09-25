@@ -244,6 +244,19 @@ function twentytwenty_register_scripts()
 
 add_action('wp_enqueue_scripts', 'twentytwenty_register_scripts');
 
+// Thêm link font-awesome
+function mytheme_enqueue_styles()
+{
+	// Font Awesome từ CDN
+	wp_enqueue_style(
+		'font-awesome',
+		'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+		array(), // dependencies
+		'4.7.0'  // version
+	);
+}
+add_action('wp_enqueue_scripts', 'mytheme_enqueue_styles');
+
 /**
  * Fix skip link focus in IE11.
  *

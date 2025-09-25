@@ -99,7 +99,6 @@ if ($has_footer_menu || $has_social_menu || $has_sidebar_1 || $has_sidebar_2) {
 					<div class="container">
 						<div class="row text-center text-xs-center text-sm-left text-md-left">
 							<div class="col-xs-12 col-sm-4 col-md-4">
-								<h5>Quick links</h5>
 								<?php if ($has_sidebar_1) { ?>
 
 									<div class="footer-widgets column-one grid-item">
@@ -109,7 +108,6 @@ if ($has_footer_menu || $has_social_menu || $has_sidebar_1 || $has_sidebar_2) {
 								<?php } ?>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-md-4">
-								<h5>Quick links</h5>
 								<?php if ($has_sidebar_2) { ?>
 
 									<div class="footer-widgets column-one grid-item">
@@ -119,7 +117,6 @@ if ($has_footer_menu || $has_social_menu || $has_sidebar_1 || $has_sidebar_2) {
 								<?php } ?>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-md-4">
-								<h5>Quick links</h5>
 								<?php if ($has_sidebar_3) { ?>
 
 									<div class="footer-widgets column-one grid-item">

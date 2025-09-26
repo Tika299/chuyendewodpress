@@ -749,9 +749,10 @@ function twentytwenty_body_classes($classes)
 	$has_sidebar_1   = is_active_sidebar('sidebar-1');
 	$has_sidebar_2   = is_active_sidebar('sidebar-2');
 	$has_sidebar_3   = is_active_sidebar('sidebar-3');
+	$has_sidebar_4   = is_active_sidebar('sidebar-4');
 
 	// Add a class indicating whether those elements are output.
-	if ($has_footer_menu || $has_social_menu || $has_sidebar_1 || $has_sidebar_2) {
+	if ($has_footer_menu || $has_social_menu || $has_sidebar_1 || $has_sidebar_2 || $has_sidebar_3 || $has_sidebar_4) {
 		$classes[] = 'footer-top-visible';
 	} else {
 		$classes[] = 'footer-top-hidden';

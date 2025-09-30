@@ -292,91 +292,200 @@ p.h6 {
 	-moz-transition: .5s all ease;
 	transition: .5s all ease;
 }
+
+div.footer-custom ul li::before {
+	content: '\f101';
+	font-family: "FontAwesome";
+	color: #ffffff;
+	font-size: 2rem;
+	font-weight: 300;
+	margin-right: 5px;
+}
+
+div.footer-custom li {
+	font-weight: 300;
+	padding: 3px 0;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+
+div.footer-custom li:hover {
+	padding: 3px 0;
+	margin-left:5px;
+	font-weight:700;
+}
+
+div.footer-custom li:hover::before {
+	padding: 3px 0;
+	margin-left:5px;
+	font-weight:700;
+}
+
+.widget-content .wp-block-heading {
+	color: #fff;
+}
+
+.widget-content .wp-block-heading::before {
+	content: '';
+	border-left: 3px solid #fff;
+	margin-right: 5px;
+	color: #fff;
+}
 /* End custom css footer */
 
 /* End Footer Custom */
 
 /* Start Post custom */
 
-/* Container tổng cho mỗi bài */
 .post {
 	display: flex;
 	flex-direction: row;
 	border-bottom: 1px solid #e5e7eb;
 	padding: 20px 0;
 	gap: 20px;
-  }
-  
-  /* Khối ngày tháng năm */
-  .post .post-date {
-	max-width: 120px;
+}
+
+/* Cột ảnh đại diện */
+.post-thumbnail {
+	flex-shrink: 0;
+	width: 160px;
+}
+
+.post-thumbnail img {
+	width: 100%;
+	height: auto;
+	border-radius: 6px;
+	object-fit: cover;
+}
+
+/* Cột phải: chứa ngày + nội dung */
+.post-main {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+	flex: 1;
+}
+
+/* Khối ngày tháng */
+.post .post-date {
+	max-width: 100px;
 	text-align: center;
 	border-right: 1px solid #e5e7eb;
 	padding-right: 15px;
 	margin-right: 15px;
-  }
-  
-  .post .post-date .day {
+}
+
+.post .post-date .day {
 	font-size: 40px;
 	font-weight: bold;
-	color: #1e3a8a; /* xanh đậm */
+	color: #1e3a8a;
 	line-height: 1;
-  }
-  
-  .post .post-date .month {
+}
+
+.post .post-date .month {
 	text-transform: uppercase;
 	font-size: 13px;
-	color: #6b7280; /* xám */
+	color: #6b7280;
 	display: block;
 	margin-top: 5px;
-  }
-  
-  .post .post-date .year {
+}
+
+.post .post-date .year {
 	font-size: 14px;
-	color: #2563eb; /* xanh */
+	color: #2563eb;
 	font-weight: 500;
-  }
-  
-  /* Nội dung bên phải */
-  .post .post-content {
+}
+
+/* Nội dung */
+.post .post-content {
 	flex: 1;
-  }
-  
-  .post .post-title {
+}
+
+.post .post-title {
 	font-size: 20px;
 	font-weight: bold;
 	margin: 0 0 10px 0;
-  }
-  
-  .post .post-title a {
+}
+
+.post .post-title a {
 	color: #111827;
 	text-decoration: none;
-  }
-  
-  .post .post-title a:hover {
+}
+
+.post .post-title a:hover {
 	color: #2563eb;
-  }
-  
-  /* Categories */
-  .post .post-meta {
+}
+
+.post .post-meta {
 	font-size: 14px;
 	color: #4b5563;
 	margin: 0 10px 10px 0;
-  }
-  
-  .post .post-meta .label {
+}
+
+.post .post-meta .label {
 	font-weight: 600;
 	color: #1f2937;
 	margin-right: 5px;
-  }
-  
-  /* Excerpt */
-  .post .post-excerpt {
+}
+
+.post .post-excerpt {
 	font-size: 14px;
 	color: #374151;
 	line-height: 1.5;
-  }
+}
+
+.flex-custom {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+}
   
+.single-post {
+	display: block;
+}
+
+.single-post #footer {
+	width: 100%;
+}
+
+.single-thumbnail img {
+    width: 50%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.single-thumbnail {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.single-post .post-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.single-post .post-date {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 15px;
+}
+
+.single-post .post-meta {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.single-post .entry-content {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+}
 
 /* End Post custom */
 
@@ -4479,45 +4588,7 @@ div.comment:first-of-type {
 	margin: 0.3rem 0;
 }
 
-.widget_categories li a::before {
-	content: '\f101';
-	font-family: "FontAwesome";
-	color: #ffffff;
-	font-size: 2rem;
-	font-weight: 300;
-	margin-right: 5px;
-}
 
-.widget_categories li a {
-	font-weight: 300;
-	padding: 3px 0;
-	-webkit-transition: .5s all ease;
-	-moz-transition: .5s all ease;
-	transition: .5s all ease;
-}
-
-.widget_categories li a:hover {
-	padding: 3px 0;
-	margin-left:5px;
-	font-weight:700;
-}
-
-.widget_categories li a:hover::before {
-	padding: 3px 0;
-	margin-left:5px;
-	font-weight:700;
-}
-
-.widget-content .wp-block-heading {
-	color: #fff;
-}
-
-.widget-content .wp-block-heading::before {
-	content: '';
-	border-left: 3px solid #fff;
-	margin-right: 5px;
-	color: #fff;
-}
 
 .widget_archive li li,
 .widget_categories li li,

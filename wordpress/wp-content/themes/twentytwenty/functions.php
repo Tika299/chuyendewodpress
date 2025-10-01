@@ -879,3 +879,23 @@ function twentytwenty_get_elements_array()
 	 */
 	return apply_filters('twentytwenty_get_elements_array', $elements);
 }
+
+// Trong wp-content/themes/twentytwenty-child/functions.php
+add_action('after_setup_theme', function () {
+	// Đảm bảo hàm twentytwenty_the_theme_svg tồn tại
+	if (!function_exists('twentytwenty_the_theme_svg')) {
+		return;
+	}
+
+	// Thêm biểu tượng SVG tùy chỉnh
+	add_filter('twentytwenty_svg_icons', function ($icons) {
+		$icons['user'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-6 2.7-6 6v1h12v-1c0-3.3-2.7-6-6-6z"/></svg>';
+		$icons['cross'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M18.3 5.7l-1.4-1.4-4.9 4.9-4.9-4.9-1.4 1.4 4.9 4.9-4.9 4.9 1.4 1.4 4.9-4.9 4.9 4.9 1.4-1.4-4.9-4.9z"/></svg>';
+		return $icons;
+	});
+});
+
+// Enqueue style của parent theme
+add_action('wp_enqueue_scripts', function () {
+	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
+});

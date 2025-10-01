@@ -489,6 +489,102 @@ div.footer-custom li:hover::before {
 
 /* End Post custom */
 
+/* Start Header custom */
+.user-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.user-modal.showing-user-modal {
+    display: block;
+}
+
+.user-modal .modal-inner {
+    background: #fff;
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1001;
+}
+
+.user-modal .modal-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.user-modal .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.user-modal .modal-content-inner {
+    padding: 20px;
+}
+
+.user-modal .user-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.user-modal .user-menu li {
+    margin: 10px 0;
+}
+
+.user-modal .user-menu a {
+    text-decoration: none;
+    color: #0073aa;
+}
+
+.user-modal .user-menu a:hover {
+    text-decoration: underline;
+}
+
+.user-modal form p {
+    margin: 15px 0;
+}
+
+.user-modal form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.user-modal form input[type="text"],
+.user-modal form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.user-modal form input[type="submit"] {
+    background: #0073aa;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-modal form input[type="submit"]:hover {
+    background: #005177;
+}
+/* End Header custom */
+
 /* Screen Reader Text ------------------------ */
 
 .screen-reader-text {

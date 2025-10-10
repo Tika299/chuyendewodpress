@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template file for displaying the comments and comment form for the
  * Twenty Twenty theme.
@@ -13,12 +14,12 @@
  * the visitor has not yet entered the password we will
  * return early without loading the comments.
 */
-if ( post_password_required() ) {
+if (post_password_required()) {
 	return;
 }
 
-if ( $comments ) {
-	?>
+if ($comments) {
+?>
 
 	<div class="comments" id="comments">
 
@@ -29,28 +30,28 @@ if ( $comments ) {
 		<div class="comments-header section-inner small max-percentage">
 
 			<h2 class="comment-reply-title">
-			<?php
-			if ( ! have_comments() ) {
-				_e( 'Leave a comment', 'twentytwenty' );
-			} elseif ( '1' === $comments_number ) {
-				/* translators: %s: Post title. */
-				printf( _x( 'One reply on &ldquo;%s&rdquo;', 'comments title', 'twentytwenty' ), get_the_title() );
-			} else {
-				printf(
-					/* translators: 1: Number of comments, 2: Post title. */
-					_nx(
-						'%1$s reply on &ldquo;%2$s&rdquo;',
-						'%1$s replies on &ldquo;%2$s&rdquo;',
-						$comments_number,
-						'comments title',
-						'twentytwenty'
-					),
-					number_format_i18n( $comments_number ),
-					get_the_title()
-				);
-			}
+				<?php
+				if (! have_comments()) {
+					_e('Leave a comment', 'twentytwenty');
+				} elseif ('1' === $comments_number) {
+					/* translators: %s: Post title. */
+					printf(_x('One reply on &ldquo;%s&rdquo;', 'comments title', 'twentytwenty'), get_the_title());
+				} else {
+					printf(
+						/* translators: 1: Number of comments, 2: Post title. */
+						_nx(
+							'%1$s reply on &ldquo;%2$s&rdquo;',
+							'%1$s replies on &ldquo;%2$s&rdquo;',
+							$comments_number,
+							'comments title',
+							'twentytwenty'
+						),
+						number_format_i18n($comments_number),
+						get_the_title()
+					);
+				}
 
-			?>
+				?>
 			</h2><!-- .comments-title -->
 
 		</div><!-- .comments-header -->
@@ -71,25 +72,26 @@ if ( $comments ) {
 					'echo'      => false,
 					'end_size'  => 0,
 					'mid_size'  => 0,
-					'next_text' => __( 'Newer Comments', 'twentytwenty' ) . ' <span aria-hidden="true">&rarr;</span>',
-					'prev_text' => '<span aria-hidden="true">&larr;</span> ' . __( 'Older Comments', 'twentytwenty' ),
+					'next_text' => __('Newer Comments', 'twentytwenty') . ' <span aria-hidden="true">&rarr;</span>',
+					'prev_text' => '<span aria-hidden="true">&larr;</span> ' . __('Older Comments', 'twentytwenty'),
 				)
 			);
 
-			if ( $comment_pagination ) {
+			if ($comment_pagination) {
 				$pagination_classes = '';
 
 				// If we're only showing the "Next" link, add a class indicating so.
-				if ( false === strpos( $comment_pagination, 'prev page-numbers' ) ) {
+				if (false === strpos($comment_pagination, 'prev page-numbers')) {
 					$pagination_classes = ' only-next';
 				}
-				?>
+			?>
 
-				<nav class="comments-pagination pagination<?php echo $pagination_classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>" aria-label="<?php esc_attr_e( 'Comments', 'twentytwenty' ); ?>">
-					<?php echo wp_kses_post( $comment_pagination ); ?>
+				<nav class="comments-pagination pagination<?php echo $pagination_classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output 
+															?>" aria-label="<?php esc_attr_e('Comments', 'twentytwenty'); ?>">
+					<?php echo wp_kses_post($comment_pagination); ?>
 				</nav>
 
-				<?php
+			<?php
 			}
 			?>
 
@@ -97,36 +99,58 @@ if ( $comments ) {
 
 	</div><!-- comments -->
 
-	<?php
+<?php
 }
 
-if ( comments_open() || pings_open() ) {
+if (comments_open() || pings_open()) {
 
-	if ( $comments ) {
+	if ($comments) {
 		echo '<hr class="styled-separator is-style-wide" aria-hidden="true" />';
 	}
 
 	comment_form(
 		array(
 			'class_form'         => 'section-inner thin max-percentage',
-			'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
-			'title_reply_after'  => '</h2>',
+			'title_reply_before' => '',
+			'title_reply_after'  => '',
+			'submit_button'        => '<button type="submit" class="btn btn-primary fs-4">share</button>',
+			'submit_field'         => '<div class="form-group text-right">%1$s %2$s</div>',
+			'class_form'           => 'section-inner thin max-percentage',
+			'comment_field'      => '
+                <!--- Post Form Begins -->
+                    <div class="card-header fs-3">
+                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">' . __('Make a Post', 'twentytwenty') . '</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                                <div class="form-group">
+                                    <label class="sr-only" for="message">post</label>
+                                    <textarea class="form-control fs-4" id="message" name="comment" rows="3" placeholder="' . esc_attr__('What are you thinking...', 'twentytwenty') . '" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--- Post Form Ends -->',
 		)
 	);
+} elseif (is_single()) {
 
-} elseif ( is_single() ) {
-
-	if ( $comments ) {
+	if ($comments) {
 		echo '<hr class="styled-separator is-style-wide" aria-hidden="true" />';
 	}
 
-	?>
+?>
 
 	<div class="comment-respond" id="respond">
 
-		<p class="comments-closed"><?php _e( 'Comments are closed.', 'twentytwenty' ); ?></p>
+		<p class="comments-closed"><?php _e('Comments are closed.', 'twentytwenty'); ?></p>
 
 	</div><!-- #respond -->
 
-	<?php
+<?php
 }

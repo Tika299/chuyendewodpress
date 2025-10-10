@@ -2626,18 +2626,7 @@ function comment_form( $args = array(), $post = null ) {
 				wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) )
 			)
 		),
-		'logged_in_as'         => sprintf(
-			'<p class="logged-in-as">%s%s</p>',
-			sprintf(
-				/* translators: 1: User name, 2: Edit user link, 3: Logout URL. */
-				__( 'Logged in as %1$s. <a href="%2$s">Edit your profile</a>. <a href="%3$s">Log out?</a>' ),
-				$user_identity,
-				get_edit_user_link(),
-				/** This filter is documented in wp-includes/link-template.php */
-				wp_logout_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) )
-			),
-			$required_text
-		),
+		'logged_in_as'         => '',
 		'comment_notes_before' => sprintf(
 			'<p class="comment-notes">%s%s</p>',
 			sprintf(
@@ -2655,16 +2644,16 @@ function comment_form( $args = array(), $post = null ) {
 		'class_form'           => 'comment-form',
 		'class_submit'         => 'submit',
 		'name_submit'          => 'submit',
-		'title_reply'          => __( 'Leave a Reply' ),
+		'title_reply'          => '',
 		/* translators: %s: Author of the comment being replied to. */
 		'title_reply_to'       => __( 'Leave a Reply to %s' ),
-		'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title">',
-		'title_reply_after'    => '</h3>',
+		'title_reply_before'   => '',
+		'title_reply_after'    => '',
 		'cancel_reply_before'  => ' <small>',
 		'cancel_reply_after'   => '</small>',
 		'cancel_reply_link'    => __( 'Cancel reply' ),
 		'label_submit'         => __( 'Post Comment' ),
-		'submit_button'        => '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" />',
+		'submit_button'        => '',
 		'submit_field'         => '<p class="form-submit">%1$s %2$s</p>',
 		'format'               => 'xhtml',
 	);

@@ -18,7 +18,7 @@
 get_header();
 ?>
 
-<main id="site-content">
+<main id="site-content" class="container">
 
 	<?php
 

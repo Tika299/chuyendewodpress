@@ -6752,7 +6752,6 @@ div.footer-custom li:hover::before {
 .post {
 	display: flex;
 	flex-direction: row;
-	border-bottom: 1px solid #e5e7eb;
 	padding: 20px 0;
 	gap: 20px;
 }
@@ -6907,9 +6906,7 @@ div.footer-custom li:hover::before {
 	width: max-content;
 	height: max-content;
 	color: #222;
-	background: #f8f8f8;
-	
-
+	background-color: transparent !important;
 }
 
 .custom-header-home .home-link {
@@ -7068,4 +7065,8 @@ body:not(.overlay-header) .primary-menu>li>a:hover {
 
 .header-inner {
 	padding: 1.8rem 0;
+}
+
+.custom-header-home .home-link {
+	margin: 0 !important;
 }

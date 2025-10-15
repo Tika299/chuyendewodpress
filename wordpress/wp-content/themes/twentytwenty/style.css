@@ -6778,7 +6778,7 @@ div.footer-custom li:hover::before {
 }
 
 /* Khối ngày tháng */
-.post .post-date {
+.post .post-main .post-date {
 	max-width: 100px;
 	text-align: center;
 	border-right: 1px solid #e5e7eb;
@@ -6786,14 +6786,18 @@ div.footer-custom li:hover::before {
 	margin-right: 15px;
 }
 
-.post .post-date .day {
+.post .post-main .post-date .day {
 	font-size: 40px;
 	font-weight: bold;
 	color: #1e3a8a;
 	line-height: 1;
 }
 
-.post .post-date .month {
+.post .post-date .day {
+	position: relative;
+}
+
+.post .post-main .post-date .month {
 	text-transform: uppercase;
 	font-size: 13px;
 	color: #6b7280;
@@ -6801,10 +6805,29 @@ div.footer-custom li:hover::before {
 	margin-top: 5px;
 }
 
-.post .post-date .year {
+.post .post-main .post-date .year {
 	font-size: 14px;
 	color: #2563eb;
 	font-weight: 500;
+}
+
+.single-post div.d-flex div.day::before {
+	content: '';
+	width: 18px;
+	border-bottom: 1px solid #000;
+	position: absolute;
+	top: 100%;
+}
+
+.single-post div.d-flex div.post-date {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-weight: 600;
+}
+
+div.post-content > div.d-flex.justify-content-between.align-items-center > div {
+	border-radius: 50%;
+	background-color: yellow;
+	padding: 15px;
 }
 
 /* Nội dung */
@@ -6882,7 +6905,6 @@ div.footer-custom li:hover::before {
 .single-post .post-date {
     font-size: 14px;
     color: #6b7280;
-    margin-bottom: 15px;
 }
 
 .single-post .post-meta {
@@ -7067,6 +7089,78 @@ body:not(.overlay-header) .primary-menu>li>a:hover {
 	padding: 1.8rem 0;
 }
 
-.custom-header-home .home-link {
-	margin: 0 !important;
+.pagination-single-custom {
+	font-size: 2.6rem;
+}
+
+div.post-navigation > nav > div > a {
+	position: relative;
+	left: 50%;
+	transform: translateX(-25%);
+	text-decoration: none;
+}
+
+div.post-navigation > nav > div > a span.title {
+	margin-left: 60px;
+}
+
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content-wrapper {
+    flex: 2;
+    margin: 0 20px;
+}
+
+.sidebar-left, .sidebar-right {
+    flex: 1;
+    padding: 10px;
+}
+
+/* .sidebar-left {
+    order: 1;
+}
+
+.sidebar-right {
+    order: 2;
+} */
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+    .sidebar-left, .sidebar-right {
+        order: 0;
+        width: 100%;
+    }
+    .content-wrapper {
+        margin: 0;
+    }
+}
+
+div.widget-content > h2.wp-block-heading {
+	color: #000;
+}
+
+div.widget-content > ul {
+	padding: 0 !important;
+}
+
+li {
+	list-style: none !important;
+}
+
+ul.custom-recent-posts-list {
+	margin: 0;
+}
+
+li.custom-post-item {
+	display: flex;
+	align-items: center;
 }

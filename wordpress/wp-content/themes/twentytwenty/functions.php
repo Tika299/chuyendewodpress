@@ -23,6 +23,7 @@
  * Enqueue Block Editor Assets
  * Enqueue Classic Editor Styles
  * Block Editor Settings
+ * Custom Widgets
  */
 
 /**
@@ -36,7 +37,6 @@
  */
 function twentytwenty_theme_support()
 {
-
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support('automatic-feed-links');
 
@@ -50,15 +50,15 @@ function twentytwenty_theme_support()
 
 	// Set content-width.
 	global $content_width;
-	if (! isset($content_width)) {
+	if (!isset($content_width)) {
 		$content_width = 580;
 	}
 
 	/*
-	 * Enable support for Post Thumbnails on posts and pages.
-	 *
-	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-	 */
+     * Enable support for Post Thumbnails on posts and pages.
+     *
+     * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+     */
 	add_theme_support('post-thumbnails');
 
 	// Set post thumbnail size.
@@ -88,17 +88,17 @@ function twentytwenty_theme_support()
 	);
 
 	/*
-	 * Let WordPress manage the document title.
-	 * By adding theme support, we declare that this theme does not use a
-	 * hard-coded <title> tag in the document head, and expect WordPress to
-	 * provide it for us.
-	 */
+     * Let WordPress manage the document title.
+     * By adding theme support, we declare that this theme does not use a
+     * hard-coded <title> tag in the document head, and expect WordPress to
+     * provide it for us.
+     */
 	add_theme_support('title-tag');
 
 	/*
-	 * Switch default core markup for search form, comment form, and comments
-	 * to output valid HTML5.
-	 */
+     * Switch default core markup for search form, comment form, and comments
+     * to output valid HTML5.
+     */
 	add_theme_support(
 		'html5',
 		array(
@@ -120,10 +120,10 @@ function twentytwenty_theme_support()
 	add_theme_support('responsive-embeds');
 
 	/*
-	 * Adds starter content to highlight the theme on fresh sites.
-	 * This is done conditionally to avoid loading the starter content on every
-	 * page load, as it is a one-off operation only needed once in the customizer.
-	 */
+     * Adds starter content to highlight the theme on fresh sites.
+     * This is done conditionally to avoid loading the starter content on every
+     * page load, as it is a one-off operation only needed once in the customizer.
+     */
 	if (is_customize_preview()) {
 		require get_template_directory() . '/inc/starter-content.php';
 		add_theme_support('starter-content', twentytwenty_get_starter_content());
@@ -133,9 +133,9 @@ function twentytwenty_theme_support()
 	add_theme_support('customize-selective-refresh-widgets');
 
 	/*
-	 * Adds `async` and `defer` support for scripts registered or enqueued
-	 * by the theme.
-	 */
+     * Adds `async` and `defer` support for scripts registered or enqueued
+     * by the theme.
+     */
 	$loader = new TwentyTwenty_Script_Loader();
 	if (version_compare($GLOBALS['wp_version'], '6.3', '<')) {
 		add_filter('script_loader_tag', array($loader, 'filter_script_loader_tag'), 10, 2);
@@ -197,7 +197,6 @@ add_action('init', 'twentytwenty_register_block_patterns');
  */
 function twentytwenty_register_styles()
 {
-
 	$theme_version = wp_get_theme()->get('Version');
 
 	wp_enqueue_style('twentytwenty-style', get_stylesheet_uri(), array(), $theme_version);
@@ -218,21 +217,22 @@ function twentytwenty_register_styles()
 
 add_action('wp_enqueue_scripts', 'twentytwenty_register_styles');
 
-function twentytwenty_enqueue_bootstrap() {
-    wp_enqueue_style(
-        'bootstrap-css',
-        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
-        array(),
-        '5.3.3',
-        'all'
-    );
-    wp_enqueue_script(
-        'bootstrap-js',
-        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
-        array(),
-        '5.3.3',
-        true
-    );
+function twentytwenty_enqueue_bootstrap()
+{
+	wp_enqueue_style(
+		'bootstrap-css',
+		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+		array(),
+		'5.3.3',
+		'all'
+	);
+	wp_enqueue_script(
+		'bootstrap-js',
+		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
+		array(),
+		'5.3.3',
+		true
+	);
 }
 add_action('wp_enqueue_scripts', 'twentytwenty_enqueue_bootstrap');
 
@@ -243,19 +243,18 @@ add_action('wp_enqueue_scripts', 'twentytwenty_enqueue_bootstrap');
  */
 function twentytwenty_register_scripts()
 {
-
 	$theme_version = wp_get_theme()->get('Version');
 
-	if ((! is_admin()) && is_singular() && comments_open() && get_option('thread_comments')) {
+	if ((!is_admin()) && is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
 
 	/*
-	 * This script is intentionally printed in the head because it involves the page header. The `defer` script loading
-	 * strategy ensures that it does not block rendering; being in the head it will start loading earlier so that it
-	 * will execute sooner once the DOM has loaded. The $args array is not used here to avoid unintentional footer
-	 * placement in WP<6.3; the wp_script_add_data() call is used instead.
-	 */
+     * This script is intentionally printed in the head because it involves the page header. The `defer` script loading
+     * strategy ensures that it does not block rendering; being in the head it will start loading earlier so that it
+     * will execute sooner once the DOM has loaded. The $args array is not used here to avoid unintentional footer
+     * placement in WP<6.3; the wp_script_add_data() call is used instead.
+     */
 	wp_enqueue_script('twentytwenty-js', get_template_directory_uri() . '/assets/js/index.js', array(), $theme_version);
 	wp_script_add_data('twentytwenty-js', 'strategy', 'defer');
 }
@@ -296,7 +295,7 @@ function twentytwenty_skip_link_focus_fix()
 			/^[A-z0-9_-]+$/.test(e) && (t = document.getElementById(e)) && (/^(?:a|select|input|button|textarea)$/i.test(t.tagName) || (t.tabIndex = -1), t.focus())
 		}, !1);
 	</script>
-<?php
+	<?php
 }
 
 /**
@@ -324,7 +323,6 @@ add_action('wp_enqueue_scripts', 'twentytwenty_non_latin_languages');
  */
 function twentytwenty_menus()
 {
-
 	$locations = array(
 		'primary'  => __('Desktop Horizontal Menu', 'twentytwenty'),
 		'expanded' => __('Desktop Expanded Menu', 'twentytwenty'),
@@ -348,10 +346,9 @@ add_action('init', 'twentytwenty_menus');
  */
 function twentytwenty_get_custom_logo($html)
 {
-
 	$logo_id = get_theme_mod('custom_logo');
 
-	if (! $logo_id) {
+	if (!$logo_id) {
 		return $html;
 	}
 
@@ -395,8 +392,7 @@ function twentytwenty_get_custom_logo($html)
 
 add_filter('get_custom_logo', 'twentytwenty_get_custom_logo');
 
-if (! function_exists('wp_body_open')) {
-
+if (!function_exists('wp_body_open')) {
 	/**
 	 * Shim for wp_body_open, ensuring backward compatibility with versions of WordPress older than 5.2.
 	 *
@@ -433,7 +429,6 @@ add_action('wp_body_open', 'twentytwenty_skip_link', 5);
  */
 function twentytwenty_sidebar_registration()
 {
-
 	// Arguments used in all register_sidebar() calls.
 	$shared_args = array(
 		'before_title'  => '<h2 class="widget-title subheading heading-size-3">',
@@ -489,6 +484,30 @@ function twentytwenty_sidebar_registration()
 			)
 		)
 	);
+
+	// Sidebar Categories.
+	register_sidebar(
+		array_merge(
+			$shared_args,
+			array(
+				'name'        => __('Categories Sidebar', 'twentytwenty'),
+				'id'          => 'sidebar-categories',
+				'description' => __('Widgets in this area will display the categories list.', 'twentytwenty'),
+			)
+		)
+	);
+
+	// Sidebar Recent Posts.
+	register_sidebar(
+		array_merge(
+			$shared_args,
+			array(
+				'name'        => __('Recent Posts Sidebar', 'twentytwenty'),
+				'id'          => 'sidebar-recent-posts',
+				'description' => __('Widgets in this area will display the recent posts list.', 'twentytwenty'),
+			)
+		)
+	);
 }
 
 add_action('widgets_init', 'twentytwenty_sidebar_registration');
@@ -502,7 +521,6 @@ add_action('widgets_init', 'twentytwenty_sidebar_registration');
  */
 function twentytwenty_block_editor_styles()
 {
-
 	$theme_version = wp_get_theme()->get('Version');
 
 	// Enqueue the editor styles.
@@ -539,7 +557,6 @@ if (is_admin() && version_compare($GLOBALS['wp_version'], '6.3', '>=')) {
  */
 function twentytwenty_classic_editor_styles()
 {
-
 	$classic_editor_styles = array(
 		'/assets/css/editor-style-classic.css',
 		'/assets/css/font-inter.css',
@@ -561,14 +578,13 @@ add_action('init', 'twentytwenty_classic_editor_styles');
  */
 function twentytwenty_add_classic_editor_customizer_styles($mce_init)
 {
-
 	$styles = twentytwenty_get_customizer_css('classic-editor');
 
-	if (! $styles) {
+	if (!$styles) {
 		return $mce_init;
 	}
 
-	if (! isset($mce_init['content_style'])) {
+	if (!isset($mce_init['content_style'])) {
 		$mce_init['content_style'] = $styles . ' ';
 	} else {
 		$mce_init['content_style'] .= ' ' . $styles . ' ';
@@ -588,15 +604,14 @@ add_filter('tiny_mce_before_init', 'twentytwenty_add_classic_editor_customizer_s
  */
 function twentytwenty_add_classic_editor_non_latin_styles($mce_init)
 {
-
 	$styles = TwentyTwenty_Non_Latin_Languages::get_non_latin_css('classic-editor');
 
 	// Return if there are no styles to add.
-	if (! $styles) {
+	if (!$styles) {
 		return $mce_init;
 	}
 
-	if (! isset($mce_init['content_style'])) {
+	if (!isset($mce_init['content_style'])) {
 		$mce_init['content_style'] = $styles . ' ';
 	} else {
 		$mce_init['content_style'] .= ' ' . $styles . ' ';
@@ -615,7 +630,6 @@ add_filter('tiny_mce_before_init', 'twentytwenty_add_classic_editor_non_latin_st
  */
 function twentytwenty_block_editor_settings()
 {
-
 	// Block Editor Palette.
 	$editor_color_palette = array(
 		array(
@@ -642,7 +656,7 @@ function twentytwenty_block_editor_settings()
 
 	// Add the background option.
 	$background_color = get_theme_mod('background_color');
-	if (! $background_color) {
+	if (!$background_color) {
 		$background_color_arr = get_theme_support('custom-background');
 		$background_color     = $background_color_arr[0]['default-color'];
 	}
@@ -774,7 +788,6 @@ add_action('customize_preview_init', 'twentytwenty_customize_preview_init');
  */
 function twentytwenty_get_color_for_area($area = 'content', $context = 'text')
 {
-
 	// Get the value from the theme-mod.
 	$settings = get_theme_mod(
 		'accent_accessible_colors',
@@ -832,7 +845,6 @@ function twentytwenty_get_customizer_color_vars()
  */
 function twentytwenty_get_elements_array()
 {
-
 	// The array is formatted like this:
 	// [key-in-saved-setting][sub-key-in-setting][css-property] = [elements].
 	$elements = array(
@@ -897,3 +909,122 @@ function twentytwenty_get_elements_array()
 	 */
 	return apply_filters('twentytwenty_get_elements_array', $elements);
 }
+
+/**
+ * Custom Widgets
+ */
+class Custom_Categories_Widget extends WP_Widget
+{
+	public function __construct()
+	{
+		parent::__construct(
+			'custom_categories_widget',
+			__('Custom Categories', 'twentytwenty'),
+			array('description' => __('A custom widget to display categories.', 'twentytwenty'))
+		);
+	}
+
+	public function widget($args, $instance)
+	{
+		echo $args['before_widget'];
+		echo '<div class="widget-content">';
+		echo '<h2 class="wp-block-heading">' . apply_filters('widget_title', $instance['title']) . '</h2>';
+		echo '<ul class="custom-categories-list">';
+		$categories = get_categories(array('hide_empty' => 0));
+		foreach ($categories as $category) {
+			echo '<li class="custom-cat-item">';
+			echo '<a href="' . get_category_link($category->term_id) . '" class="cat-link">' . $category->name . '</a>';
+			echo '<span class="cat-count">(' . $category->count . ')</span>';
+			echo '</li>';
+		}
+		echo '</ul>';
+		echo '</div>';
+		echo $args['after_widget'];
+	}
+
+	public function form($instance)
+	{
+		$title = !empty($instance['title']) ? $instance['title'] : __('Danh Mục', 'twentytwenty');
+	?>
+		<p>
+			<label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Title:', 'twentytwenty'); ?></label>
+			<input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
+		</p>
+	<?php
+	}
+
+	public function update($new_instance, $old_instance)
+	{
+		$instance = array();
+		$instance['title'] = (!empty($new_instance['title'])) ? sanitize_text_field($new_instance['title']) : __('Danh Mục', 'twentytwenty');
+		return $instance;
+	}
+}
+
+class Custom_Recent_Posts_Widget extends WP_Widget
+{
+	public function __construct()
+	{
+		parent::__construct(
+			'custom_recent_posts_widget',
+			__('Custom Recent Posts', 'twentytwenty'),
+			array('description' => __('A custom widget to display recent posts.', 'twentytwenty'))
+		);
+	}
+
+	public function widget($args, $instance)
+	{
+		echo $args['before_widget'];
+		echo '<div class="widget-content">';
+		echo '<h2 class="wp-block-heading">' . apply_filters('widget_title', $instance['title']) . '</h2>';
+		echo '<ul class="custom-recent-posts-list">';
+		$recent_posts = wp_get_recent_posts(array(
+			'numberposts' => 5,
+			'post_status' => 'publish'
+		));
+		foreach ($recent_posts as $post) {
+			echo '<li class="custom-post-item">';
+			// Thêm đoạn HTML ngày đăng trước thẻ <a>
+			echo '<div class="flex-custom">';
+			echo '<div class="post-date d-flex align-items-center">';
+			echo '<div class="d-flex flex-column" style="margin-right: 10px;">';
+			echo '<div class="day">' . get_the_date('d', $post['ID']) . '</div>';
+			echo '<span class="month">' . get_the_date('n', $post['ID']) . '</span>';
+			echo '</div>';
+			echo '<span class="year">' . get_the_date('Y', $post['ID']) . '</span>';
+			echo '</div>';
+			echo '</div>';
+			// Thẻ <a> và phần còn lại
+			echo '<a href="' . get_permalink($post['ID']) . '" class="post-link">' . $post['post_title'] . '</a>';
+			echo '</li>';
+		}
+		echo '</ul>';
+		echo '</div>';
+		echo $args['after_widget'];
+	}
+
+	public function form($instance)
+	{
+		$title = !empty($instance['title']) ? $instance['title'] : __('Bài Viết Mới Nhất', 'twentytwenty');
+	?>
+		<p>
+			<label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Title:', 'twentytwenty'); ?></label>
+			<input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
+		</p>
+<?php
+	}
+
+	public function update($new_instance, $old_instance)
+	{
+		$instance = array();
+		$instance['title'] = (!empty($new_instance['title'])) ? sanitize_text_field($new_instance['title']) : __('Bài Viết Mới Nhất', 'twentytwenty');
+		return $instance;
+	}
+}
+
+function register_custom_widgets()
+{
+	register_widget('Custom_Categories_Widget');
+	register_widget('Custom_Recent_Posts_Widget');
+}
+add_action('widgets_init', 'register_custom_widgets');

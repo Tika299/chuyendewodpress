@@ -41,7 +41,7 @@ if ($next_post || $prev_post) {
 								<div class="day"><?php echo get_the_date('d'); ?></div>
 								<span class="month"><?php echo get_the_date('n'); ?></span>
 							</div>
-							<span class="year"><?php echo get_the_date('Y'); ?></span>
+							<span class="year"><?php echo get_the_date('y'); ?></span>
 						</div>
 					</div>
 					<span class="title"><span class="title-inner"><?php echo wp_kses_post(get_the_title($prev_post->ID)); ?></span></span>

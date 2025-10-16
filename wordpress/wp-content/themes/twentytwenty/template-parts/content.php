@@ -20,7 +20,7 @@ if (!is_single()) {
 
 <div class="main-container">
 	<!-- Sidebar Categories (Bên trái) -->
-	<?php if (is_active_sidebar('sidebar-categories')) : ?>
+	<?php if (is_active_sidebar('sidebar-categories') && is_single()) : ?>
 		<div id="categories-sidebar" class="widget-area sidebar-left">
 			<?php dynamic_sidebar('sidebar-categories'); ?>
 		</div>
@@ -50,7 +50,7 @@ if (!is_single()) {
 									<div class="day"><?php echo get_the_date('d'); ?></div>
 									<span class="month"><?php echo get_the_date('n'); ?></span>
 								</div>
-								<span class="year"><?php echo get_the_date('Y'); ?></span>
+								<span class="year"><?php echo get_the_date('y'); ?></span>
 							</div>
 						</div>
 					</div>
@@ -129,7 +129,7 @@ if (!is_single()) {
 	</div>
 
 	<!-- Sidebar Recent Posts (Bên phải) -->
-	<?php if (is_active_sidebar('sidebar-recent-posts')) : ?>
+	<?php if (is_active_sidebar('sidebar-recent-posts') && is_single()) : ?>
 		<div id="recent-posts-sidebar" class="widget-area sidebar-right">
 			<?php dynamic_sidebar('sidebar-recent-posts'); ?>
 		</div>

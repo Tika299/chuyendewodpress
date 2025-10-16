@@ -915,111 +915,154 @@ function twentytwenty_get_elements_array()
  */
 class Custom_Categories_Widget extends WP_Widget
 {
-	public function __construct()
-	{
-		parent::__construct(
-			'custom_categories_widget',
-			__('Custom Categories', 'twentytwenty'),
-			array('description' => __('A custom widget to display categories.', 'twentytwenty'))
-		);
-	}
+    public function __construct()
+    {
+        parent::__construct(
+            'custom_categories_widget',
+            __('Custom Categories', 'twentytwenty'),
+            array('description' => __('A custom widget to display categories with styled bullets.', 'twentytwenty'))
+        );
+    }
 
-	public function widget($args, $instance)
-	{
-		echo $args['before_widget'];
-		echo '<div class="widget-content">';
-		echo '<h2 class="wp-block-heading">' . apply_filters('widget_title', $instance['title']) . '</h2>';
-		echo '<ul class="custom-categories-list">';
-		$categories = get_categories(array('hide_empty' => 0));
-		foreach ($categories as $category) {
-			echo '<li class="custom-cat-item">';
-			echo '<a href="' . get_category_link($category->term_id) . '" class="cat-link">' . $category->name . '</a>';
-			echo '<span class="cat-count">(' . $category->count . ')</span>';
-			echo '</li>';
-		}
-		echo '</ul>';
-		echo '</div>';
-		echo $args['after_widget'];
-	}
+    public function widget($args, $instance)
+    {
+        echo $args['before_widget'];
+        echo '<div class="widget-content">';
+        echo '<h2 class="wp-block-heading">' . apply_filters('widget_title', $instance['title']) . '</h2>';
+        echo '<ul class="custom-categories-list">';
+        $categories = get_categories(array('hide_empty' => 0));
+        foreach ($categories as $category) {
+            echo '<li class="custom-cat-item">';
+            echo '<span class="cat-bullet"></span>';
+            echo '<a href="' . get_category_link($category->term_id) . '" class="cat-link">' . $category->name . '</a>';
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</div>';
+        echo $args['after_widget'];
+    }
 
-	public function form($instance)
-	{
-		$title = !empty($instance['title']) ? $instance['title'] : __('Danh Mục', 'twentytwenty');
-	?>
-		<p>
-			<label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Title:', 'twentytwenty'); ?></label>
-			<input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-		</p>
-	<?php
-	}
+    public function form($instance)
+    {
+        $title = !empty($instance['title']) ? $instance['title'] : __('Categories', 'twentytwenty');
+        ?>
+        <p>
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Title:', 'twentytwenty'); ?></label>
+            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
+        </p>
+        <?php
+    }
 
-	public function update($new_instance, $old_instance)
-	{
-		$instance = array();
-		$instance['title'] = (!empty($new_instance['title'])) ? sanitize_text_field($new_instance['title']) : __('Danh Mục', 'twentytwenty');
-		return $instance;
-	}
+    public function update($new_instance, $old_instance)
+    {
+        $instance = array();
+        $instance['title'] = (!empty($new_instance['title'])) ? sanitize_text_field($new_instance['title']) : __('Categories', 'twentytwenty');
+        return $instance;
+    }
 }
 
 class Custom_Recent_Posts_Widget extends WP_Widget
 {
-	public function __construct()
-	{
-		parent::__construct(
-			'custom_recent_posts_widget',
-			__('Custom Recent Posts', 'twentytwenty'),
-			array('description' => __('A custom widget to display recent posts.', 'twentytwenty'))
-		);
-	}
+    public function __construct()
+    {
+        parent::__construct(
+            'custom_recent_posts_widget',
+            __('Custom Recent Posts', 'twentytwenty'),
+            array('description' => __('A custom widget to display recent posts with time and styling options.', 'twentytwenty'))
+        );
+    }
 
-	public function widget($args, $instance)
-	{
-		echo $args['before_widget'];
-		echo '<div class="widget-content">';
-		echo '<h2 class="wp-block-heading">' . apply_filters('widget_title', $instance['title']) . '</h2>';
-		echo '<ul class="custom-recent-posts-list">';
-		$recent_posts = wp_get_recent_posts(array(
-			'numberposts' => 5,
-			'post_status' => 'publish'
-		));
-		foreach ($recent_posts as $post) {
-			echo '<li class="custom-post-item">';
-			// Thêm đoạn HTML ngày đăng trước thẻ <a>
-			echo '<div class="flex-custom">';
-			echo '<div class="post-date d-flex align-items-center">';
-			echo '<div class="d-flex flex-column" style="margin-right: 10px;">';
-			echo '<div class="day">' . get_the_date('d', $post['ID']) . '</div>';
-			echo '<span class="month">' . get_the_date('n', $post['ID']) . '</span>';
-			echo '</div>';
-			echo '<span class="year">' . get_the_date('Y', $post['ID']) . '</span>';
-			echo '</div>';
-			echo '</div>';
-			// Thẻ <a> và phần còn lại
-			echo '<a href="' . get_permalink($post['ID']) . '" class="post-link">' . $post['post_title'] . '</a>';
-			echo '</li>';
-		}
-		echo '</ul>';
-		echo '</div>';
-		echo $args['after_widget'];
-	}
+    public function widget($args, $instance)
+    {
+        echo $args['before_widget'];
+        echo '<div class="widget-content">';
 
-	public function form($instance)
-	{
-		$title = !empty($instance['title']) ? $instance['title'] : __('Bài Viết Mới Nhất', 'twentytwenty');
-	?>
-		<p>
-			<label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Title:', 'twentytwenty'); ?></label>
-			<input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-		</p>
-<?php
-	}
+        // Tiêu đề widget
+        if (!empty($instance['title'])) {
+            echo '<h2 class="wp-block-heading">' . apply_filters('widget_title', $instance['title']) . '</h2>';
+        }
 
-	public function update($new_instance, $old_instance)
-	{
-		$instance = array();
-		$instance['title'] = (!empty($new_instance['title'])) ? sanitize_text_field($new_instance['title']) : __('Bài Viết Mới Nhất', 'twentytwenty');
-		return $instance;
-	}
+        echo '<ul class="custom-recent-posts-list">';
+        $recent_posts = wp_get_recent_posts(array(
+            'numberposts' => !empty($instance['number_posts']) ? intval($instance['number_posts']) : 5,
+            'post_status' => 'publish'
+        ));
+
+        if (!empty($recent_posts)) {
+            foreach ($recent_posts as $post) {
+                echo '<li class="custom-post-item">';
+                // Giữ nguyên cách hiển thị ngày tháng của bạn
+                echo '<div class="flex-custom">';
+                echo '<div class="post-date d-flex align-items-center">';
+                echo '<div class="d-flex flex-column" style="margin-right: 10px;">';
+                echo '<div class="day">' . get_the_date('d', $post['ID']) . '</div>';
+                echo '<span class="month">' . get_the_date('n', $post['ID']) . '</span>';
+                echo '</div>';
+                echo '<span class="year">' . get_the_date('y', $post['ID']) . '</span>';
+                echo '</div>';
+                echo '</div>';
+                // Link bài viết
+                echo '<a href="' . get_permalink($post['ID']) . '" class="post-link">' . esc_html($post['post_title']) . '</a>';
+                echo '</li>';
+            }
+        } else {
+            echo '<li class="no-posts">Chưa có bài viết nào.</li>';
+        }
+        echo '</ul>';
+
+        // Nút Xem tất cả bài viết
+        $view_all_text = !empty($instance['view_all_text']) ? $instance['view_all_text'] : __('XEM TẤT CẢ BÀI VIẾT', 'twentytwenty');
+        $view_all_url = !empty($instance['view_all_url']) ? $instance['view_all_url'] : home_url('/');
+        
+        if (!empty($view_all_text)) {
+            echo '<div class="view-all-section">';
+            echo '<a href="' . esc_url($view_all_url) . '" class="view-all-btn" target="_self">';
+            echo esc_html($view_all_text);
+            echo '</a>';
+            echo '</div>';
+        }
+
+        echo '</div>';
+        echo $args['after_widget'];
+    }
+
+    public function form($instance)
+    {
+        $title = !empty($instance['title']) ? $instance['title'] : __('Bài Viết Mới Nhất', 'twentytwenty');
+        $number_posts = !empty($instance['number_posts']) ? $instance['number_posts'] : 5;
+        $view_all_text = !empty($instance['view_all_text']) ? $instance['view_all_text'] : __('Xem tất cả bài viết', 'twentytwenty');
+        $view_all_url = !empty($instance['view_all_url']) ? $instance['view_all_url'] : home_url('/');
+        ?>
+        <p>
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Tiêu đề:', 'twentytwenty'); ?></label>
+            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
+        </p>
+        <p>
+            <label for="<?php echo esc_attr($this->get_field_id('number_posts')); ?>"><?php _e('Số bài viết:', 'twentytwenty'); ?></label>
+            <input class="small-text" id="<?php echo esc_attr($this->get_field_id('number_posts')); ?>" name="<?php echo esc_attr($this->get_field_name('number_posts')); ?>" type="number" min="1" max="20" value="<?php echo esc_attr($number_posts); ?>" size="3">
+        </p>
+        <p>
+            <label for="<?php echo esc_attr($this->get_field_id('view_all_text')); ?>"><?php _e('Text nút "Xem tất cả":', 'twentytwenty'); ?></label>
+            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('view_all_text')); ?>" name="<?php echo esc_attr($this->get_field_name('view_all_text')); ?>" type="text" value="<?php echo esc_attr($view_all_text); ?>">
+        </p>
+        <p>
+            <label for="<?php echo esc_attr($this->get_field_id('view_all_url')); ?>"><?php _e('URL "Xem tất cả":', 'twentytwenty'); ?></label>
+            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('view_all_url')); ?>" name="<?php echo esc_attr($this->get_field_name('view_all_url')); ?>" type="url" value="<?php echo esc_attr($view_all_url); ?>" placeholder="<?php echo esc_attr(home_url('/')); ?>">
+            <br><small><?php _e('Để trống sẽ dùng trang chủ', 'twentytwenty'); ?></small>
+        </p>
+        <?php
+    }
+
+    public function update($new_instance, $old_instance)
+    {
+        $instance = array();
+        $instance['title'] = (!empty($new_instance['title'])) ? sanitize_text_field($new_instance['title']) : __('Bài Viết Mới Nhất', 'twentytwenty');
+        $instance['number_posts'] = (!empty($new_instance['number_posts']) && is_numeric($new_instance['number_posts'])) ? intval($new_instance['number_posts']) : 5;
+        $instance['view_all_text'] = (!empty($new_instance['view_all_text'])) ? sanitize_text_field($new_instance['view_all_text']) : __('Xem tất cả bài viết', 'twentytwenty');
+        $instance['view_all_url'] = (!empty($new_instance['view_all_url'])) ? esc_url_raw($new_instance['view_all_url']) : home_url('/');
+        
+        return $instance;
+    }
 }
 
 function register_custom_widgets()
